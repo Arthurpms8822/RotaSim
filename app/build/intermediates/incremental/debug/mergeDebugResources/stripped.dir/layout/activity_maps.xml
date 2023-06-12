@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            tools:context=".MapsActivity" />
+
+        <AutoCompleteTextView
+            android:id="@+id/start_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_input"
+            android:padding="10dp"
+            android:hint="@string/start_location"
+            android:minHeight="48dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/end_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_input"
+            android:padding="10dp"
+            android:hint="@string/end_location"
+            android:minHeight="48dp" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_vehicle_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/carro_el_trico"
+            android:checked="false"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/button_generate_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/generate_route"
+                android:backgroundTint="@color/primaryColor"
+                android:textColor="@color/white"
+                style="?android:attr/button" />
+
+            <Button
+                android:id="@+id/button_start_simulation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/start_simulation"
+                android:backgroundTint="@color/primaryColor"
+                android:textColor="@color/white"
+                style="?android:attr/button" />
+
+            <Button
+                android:id="@+id/button_stop_simulation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/stop_simulation"
+                android:backgroundTint="@color/primaryColor"
+                android:textColor="@color/white"
+                style="?android:attr/button" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:columnCount="2"
+                android:rowCount="8">
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dist_ncia" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/total_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dura_o" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/total_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/velocidade_m_dia" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/average_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/velocidade" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/current_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/velocidade_desejada" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/optmal_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dist_ncia_percorrida" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/current_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tempo_atual" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/current_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/consumo" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/fuel_consumption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eficiencia" />
+
+                <TextView
+                    style="@style/StyledTextView"
+                    android:id="@+id/eficiency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </GridLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

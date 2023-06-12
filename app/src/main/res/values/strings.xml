@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">RotaSim</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="start_location">Origem</string>
+    <string name="end_location">Destino</string>
+    <string name="generate_route">Gerar Rota</string>
+    <string name="start_simulation">Simular</string>
+    <string name="info_will_be_displayed_here">Info will be displayed here</string>
+    <string name="total_distance">Total Distance:</string>
+    <string name="total_time">Total Time:</string>
+    <string name="current_speed">Current Speed:</string>
+    <string name="stop_simulation">Parar Simulação</string>
+    <string name="carro_el_trico">Carro Elétrico</string>
+    <string name="dist_ncia">Distância:</string>
+    <string name="dura_o">Duração:</string>
+    <string name="velocidade_m_dia">Velocidade média:</string>
+    <string name="velocidade">Velocidade:</string>
+    <string name="velocidade_desejada">Velocidade desejada:</string>
+    <string name="dist_ncia_percorrida">Distância Percorrida:</string>
+    <string name="tempo_atual">Tempo atual:</string>
+    <string name="consumo">Consumo:</string>
+    <string name="eficiencia">Eficiencia:</string>
+</resources>
