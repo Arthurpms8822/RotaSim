@@ -29,6 +29,8 @@ public class RouteDrawer {
     private String totalDistance;
     private String totalTime;
     private final MapsActivity.RouteCallback routeCallback;
+    private double totalDistanceValue;
+    private double totalTimeValue;
 
     /**
      * Cria um novo RouteDrawer para desenhar rotas no mapa.
@@ -151,8 +153,8 @@ public class RouteDrawer {
                 DirectionsJSONParser parser = new DirectionsJSONParser();
                 routes = parser.parse(jObject);
                 totalDistance = parser.getTotalDistance();
-                double totalDistanceDouble = getTotalDistanceInKm();
-                double totalTimeValue = 60 * totalDistanceDouble / 80;
+                totalDistanceValue = getTotalDistanceInKm();
+                totalTimeValue = 60 * totalDistanceValue / 80;
                 totalTime = totalTimeValue + " min";
             } catch (Exception e) {
                 e.printStackTrace();
@@ -188,7 +190,7 @@ public class RouteDrawer {
             }
             // Notificar o callback
             if (routeCallback != null) {
-                routeCallback.onRouteDrawn(totalDistance, totalTime);
+                routeCallback.onRouteDrawn(totalDistance, totalTime, totalDistanceValue, totalTimeValue);
             }
         }
     }

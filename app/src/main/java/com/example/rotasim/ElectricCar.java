@@ -19,7 +19,7 @@ public class ElectricCar extends Vehicle {
      */
 
     public double calculateConsumption() {
-        return energyConsumptionRate * this.getTotalDistance() / 100; // consumo de energia constante
+        return energyConsumptionRate * this.getTotalDistanceTravelled() / 100; // consumo de energia constante
     }
 
     /**

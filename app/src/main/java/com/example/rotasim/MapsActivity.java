@@ -64,6 +64,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView efficiency;
     private TextView averageSpeed;
 
+    private Vehicle vehicle;
+
     // Indica se o veículo é elétrico ou não
     private Boolean isElectric = false;
 
@@ -94,8 +96,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         efficiency = findViewById(R.id.eficiency);
         averageSpeed = findViewById(R.id.average_speed);
 
+
+
         // Definindo o comportamento do botão de geração de rota
         buttonGenerateRoute.setOnClickListener(v -> {
+           vehicle = createVehicle(isElectric);
             // O código abaixo obtém os nomes dos lugares de partida e chegada, e em seguida obtém seus respectivos IDs e coordenadas
             // Os IDs e coordenadas são então usados para desenhar a rota no mapa
             String startLocationName = startLocation.getText().toString();
@@ -109,7 +114,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // Geração da rota
                     if(mMap != null && startPosition != null && endPosition != null) {
                         mMap.clear();
-                        RouteDrawer routeDrawer = new RouteDrawer(mMap, "AIzaSyB48taeeYRzcr5yAIXT518ODCvDY141HPc", (totalDistance, totalTime) -> {
+                        RouteDrawer routeDrawer = new RouteDrawer(mMap, "AIzaSyB48taeeYRzcr5yAIXT518ODCvDY141HPc", (totalDistance, totalTime, totalDistanceDouble, totalTimeDouble) -> {
+                            vehicle.createReconciliationData(totalDistanceDouble, totalTimeDouble);
+                            vehicle.setEndPoint(endLatLng);
                             // Mostra a distância total e o tempo total nos TextViews
                             runOnUiThread(() -> {
                                 String totalDistanceStr = totalDistance + " ";
@@ -142,8 +149,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         buttonStartSimulation.setOnClickListener(v->{
-            // Cria um veículo baseado no tipo selecionado (elétrico ou não)
-            Vehicle vehicle = createVehicle(isElectric);
 
             // Habilita o botão de parar simulação
             buttonStopSimulation.setEnabled(true);
@@ -159,9 +164,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // Atualiza a interface do usuário com os dados da simulação
                     String currentSpeedStr = speed + " km/h ";
                     currentSpeed.setText(currentSpeedStr);
-                    String currentDistanceStr = String.format(Locale.US, "%.1f", vehicle.getTotalDistance()) + " km ";
+                    String currentDistanceStr = String.format(Locale.US, "%.1f", vehicle.getTotalDistanceTravelled()) + " km ";
                     currentDistance.setText(currentDistanceStr);
-                    String optimalSpeedStr = String.format(Locale.US, "%.2f",vehicle.getOptimalSpeed())+ "km/h ";
+                    String optimalSpeedStr = String.format(Locale.US, "%.2f",vehicle.getOptimalDrivingSpeed())+ "km/h ";
                     optimalSpeed.setText(optimalSpeedStr);
                     String currentTimeStr = vehicle.getTotalTimeFormatted();
                     currentTime.setText(currentTimeStr);
@@ -169,7 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     fuelConsumption.setText(fuelConsumptionStr);
                     String efficiencyStr = vehicle.getUpdatedRate();
                     efficiency.setText(efficiencyStr);
-                    String averageSpeedStr = String.format(Locale.US, "%.2f",vehicle.getAverageSpeed()) + " km/h";
+                    String averageSpeedStr = String.format(Locale.US, "%.2f",vehicle.getOverallAverageSpeed()) + " km/h";
                     averageSpeed.setText(averageSpeedStr);
 
                     // Atualiza a posição do marcador no mapa
@@ -395,6 +400,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public interface RouteCallback {
-        void onRouteDrawn(String totalDistance, String totalTime);
+        void onRouteDrawn(String totalDistance, String totalTime, double totalDistanceDouble, double totalTimeDouble);
     }
 }

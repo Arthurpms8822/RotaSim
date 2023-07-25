@@ -1,86 +1,82 @@
 [
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\drawable_ic_launcher_background.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\drawable\\ic_launcher_background.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/drawable_rounded_input.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/drawable/rounded_input.xml"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-xhdpi\\ic_launcher.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-xxhdpi\\ic_launcher.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/drawable-v24/ic_launcher_foreground.xml"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-mdpi\\ic_launcher.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-mdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-hdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/drawable_pngegg.png.flat",
+        "source": "com.example.rotasim.app-main-35:/drawable/pngegg.png"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\layout_activity_maps.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\layout\\activity_maps.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\drawable_pngegg.png.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\drawable\\pngegg.png"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-hdpi\\ic_launcher.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/xml_backup_rules.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/xml/backup_rules.xml"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\drawable_rounded_input.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\drawable\\rounded_input.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-anydpi-v33/ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-xxxhdpi\\ic_launcher.webp"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.rotasim.app-merged_res-33:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/drawable/ic_launcher_background.xml"
     },
     {
         "merged": "com.example.rotasim.app-merged_res-33:/layout_activity_maps.xml.flat",
         "source": "com.example.rotasim.app-main-35:/layout/activity_maps.xml"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\xml\\data_extraction_rules.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\drawable-v24\\ic_launcher_foreground.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-anydpi-v33_ic_launcher.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-anydpi-v33\\ic_launcher.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-xhdpi\\ic_launcher_round.webp"
-    },
-    {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
-    },
-    {
-        "merged": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-merged_res-33:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\joao_\\.gradle\\daemon\\7.5\\com.example.rotasim.app-main-35:\\xml\\backup_rules.xml"
+        "merged": "com.example.rotasim.app-merged_res-33:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.rotasim.app-main-35:/mipmap-anydpi-v26/ic_launcher_round.xml"
     }
 ]

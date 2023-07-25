@@ -6,16 +6,16 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="28"
-8-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml
+8-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="33" />
-9-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml
+9-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-11-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:42:5-79
-11-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:42:22-76
+11-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:42:5-79
+11-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:42:22-76
 12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-12-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:43:5-81
-12-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:43:22-78
+12-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:43:5-81
+12-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:43:22-78
 13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 13-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:11:5-76
 13-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:11:22-73
@@ -54,26 +54,26 @@
 31-->[androidx.core:core:1.9.0] C:\Users\joao_\.gradle\caches\transforms-3\2033df00c88964735466d344a7495998\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 32
 33    <application
-33-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:5:5-40:19
+33-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:5:5-40:19
 34        android:allowBackup="true"
-34-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:6:9-35
+34-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:6:9-35
 35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 35-->[androidx.core:core:1.9.0] C:\Users\joao_\.gradle\caches\transforms-3\2033df00c88964735466d344a7495998\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 36        android:dataExtractionRules="@xml/data_extraction_rules"
-36-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:7:9-65
+36-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:7:9-65
 37        android:debuggable="true"
 38        android:extractNativeLibs="false"
 39        android:fullBackupContent="@xml/backup_rules"
-39-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:8:9-54
+39-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:8:9-54
 40        android:icon="@mipmap/ic_launcher"
-40-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:9:9-43
+40-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:9:9-43
 41        android:label="@string/app_name"
-41-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:10:9-41
+41-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:10:9-41
 42        android:supportsRtl="true"
-42-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:11:9-35
+42-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:11:9-35
 43        android:testOnly="true"
 44        android:theme="@style/Theme.RotaSim" >
-44-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:12:9-45
+44-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:12:9-45
 45
 46        <!--
 47             TODO: Before you run your application, you need a Google Maps API key.
@@ -87,29 +87,29 @@
 55             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
 56        -->
 57        <meta-data
-57-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:26:9-28:71
+57-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:26:9-28:71
 58            android:name="com.google.android.geo.API_KEY"
-58-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:27:13-58
+58-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:27:13-58
 59            android:value="AIzaSyB48taeeYRzcr5yAIXT518ODCvDY141HPc" />
-59-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:28:13-68
+59-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:28:13-68
 60
 61        <activity
-61-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:30:9-39:20
+61-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:30:9-39:20
 62            android:name="com.example.rotasim.MapsActivity"
-62-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:31:13-41
+62-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:31:13-41
 63            android:exported="true"
-63-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:32:13-36
+63-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:32:13-36
 64            android:label="@string/title_activity_maps" >
-64-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:33:13-56
+64-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:33:13-56
 65            <intent-filter>
-65-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:34:13-38:29
+65-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:34:13-38:29
 66                <action android:name="android.intent.action.MAIN" />
-66-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:35:17-69
-66-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:35:25-66
+66-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:35:17-69
+66-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:35:25-66
 67
 68                <category android:name="android.intent.category.LAUNCHER" />
-68-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:37:17-77
-68-->C:\Users\joao_\AndroidStudioProjects\RotaSim\app\src\main\AndroidManifest.xml:37:27-74
+68-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:37:17-77
+68-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:37:27-74
 69            </intent-filter>
 70        </activity>
 71        <activity

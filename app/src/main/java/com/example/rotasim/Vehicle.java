@@ -1,61 +1,102 @@
 package com.example.rotasim;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 import java.util.Locale;
-import java.util.logging.Logger;
+import android.location.Location;
 
 public class Vehicle extends Thread {
 
-    private final double rateAt80; // Taxa de consumo de combustível em km/l a 80 km/h
+    // Variáveis relacionadas ao consumo de combustível
+    private final double consumptionRateAt80; // Taxa de consumo de combustível a 80 km/h
+    private double currentFuelConsumptionRate; // Taxa de consumo de combustível atualizada
 
-    public String getUpdatedRate() {
-        return String.format(Locale.US, "%.2f", updatedRate) + " km/L";
-    }
+    // Variáveis relacionadas à velocidade
+    private double optimalDrivingSpeed; // Velocidade de condução ideal
+    private double reconciliationFluxSpeed; // Velocidade do fluxo para reconciliação
 
-    private double updatedRate; // Taxa de consumo de combustível atualizada em km/l
-    private double optimalSpeed; // Velocidade ideal em km/h
+    // Variáveis relacionadas à distância
+    private double totalDistanceTravelled = 0; // Distância total percorrida
+    private double distanceInCurrentFlow = 0; // Distância percorrida no fluxo atual
 
-    public double getAverageSpeed() {
-        return averageSpeed;
-    }
+    // Variáveis relacionadas ao tempo
+    private long simulationStartTime = 0; // Hora de início da simulação
+    private long simulationTime = 0; // Tempo de simulação
+    private double secondsToNexMeasurement = 0.0; // Segundos para a próxima medição
+    private double totalTravelTime = 0.0; // Tempo total de viagem
 
-    private double averageSpeed;
+    // Variáveis relacionadas à reconciliação
+    private int reconciliationIteration = 1; // Iteração de reconciliação
+    private double reconciliationSamplingPoints = 0.0; // Ticks de reconciliação
+    private double[][] speedIncidenceMatrix; // Matriz de incidência
+    private ArrayList<Double> rawSpeedData = new ArrayList<>(); // Dados de velocidade bruta
+    private ArrayList<Double> processedSpeedData = new ArrayList<>(); // Dados de velocidade processados
+    private ArrayList<Double> speedStandardDeviation = new ArrayList<>(); // Desvio padrão dos dados de velocidade
 
-    private double totalDistanceCovered = 0; // Distância total percorrida desde o início do rastreamento
+    // Estado da simulação
+    private boolean isSimulationRunning = false; // A simulação está rodando
+    private LatLng endPoint;
 
-    public double getTotalDistance() {
-        return totalDistance;
-    }
-
-    private double totalDistance = 0;
-    private long startTime = 0; // Horário de início do rastreamento
-    private long simTime = 0;
-    private boolean isRunning = false;
-
-    private static final Logger logger = Logger.getLogger(Vehicle.class.getName());
 
     public Vehicle(double rate) {
-        this.rateAt80 = rate;
-        this.optimalSpeed = 80.0; // Velocidade ideal padrão
+        this.consumptionRateAt80 = rate;
+        this.optimalDrivingSpeed = 80.0; // Velocidade ideal padrão
+    }
+    @Override
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
+            double timeElapsed = (System.currentTimeMillis() - simulationStartTime) / (1000.0); //Calcula o tempo passado para checar quando o tempo for igual ao desejado para cada nó
+            if (timeElapsed >= secondsToNexMeasurement) {
+                updateSpeedData();
+                calculateSpeed(distanceInCurrentFlow, timeElapsed / (60 * 60)); //Calcula a velocidade no último fluxo
+                if (processedSpeedData.size() > 2) { //somente para evitar crashes no ultimo fluxo
+                    processedSpeedData.remove(0); // remove o primeiro elemento das medições (apaga F1)
+                    speedStandardDeviation.remove(0);
+                }
+                speedIncidenceMatrix = createIncidenceMatrix(processedSpeedData.size()); // cria matrix de incidencia com o novo tamanho de medidas
+                double[] y = convertArrayListToArray(processedSpeedData); // define o array de medições (_rawMeasurements) como uma cópia do vetor de velocidades
+                y[0] = 80 + (80 - reconciliationFluxSpeed); // Subistitui o primeiro valor deste vetor pela velocidade corrigida na posição do nó, (F2 = F1_novo = 80 + (atraso ou adiantamento))
+                double[] v = convertArrayListToArray(speedStandardDeviation);
+                double[][] A = speedIncidenceMatrix;
+                Reconciliation rec = new Reconciliation();
+                rec.reconcile(y, v, A);
+                System.out.println("Velocidades reconciliadas: " + new java.util.Date());
+                System.out.println("Fluxo: F" + ((int) reconciliationSamplingPoints - processedSpeedData.size()));
+                System.out.println("Raw Measurements:");
+                rec.printMatrix(y);
+                System.out.print("Interation: ");
+                System.out.println(reconciliationIteration++);
+                System.out.println("Reconciled flow:");
+                rec.printMatrix(rec.getReconciledFlow());
+                optimalDrivingSpeed = rec.getReconciledFlow()[0]; //Atualiza a velocidade otimizada para o prox fluxo de medição
+                distanceInCurrentFlow = 0; // Reseta a distância percorrida no fluxo
+                simulationStartTime = System.currentTimeMillis(); // Reseta a contagem de tempo
+            }
+        }
+    }
+
+    public double getTotalDistanceTravelled() {
+        return totalDistanceTravelled;
     }
 
     // Getter e Setter para a taxa de consumo de combustível
-
     // Getter e Setter para a velocidade ideal
-    public double getOptimalSpeed() {
-        return optimalSpeed;
-    }
 
+    public double getOptimalDrivingSpeed() {
+        return optimalDrivingSpeed;
+    }
     /**
      * Inicia a simulação do veículo.
      * O tempo de simulação é calculado com base no tempo real do sistema.
      */
     public void startSimulation() {
-        if (isRunning) {
+        if (isSimulationRunning) {
             return; // Se a thread já estiver em execução, não faz nada
         }
-        isRunning = true;
-        startTime = System.currentTimeMillis();
-        simTime = startTime;
+        isSimulationRunning = true;
+        simulationStartTime = System.currentTimeMillis();
+        simulationTime = simulationStartTime;
         start();
     }
 
@@ -66,13 +107,20 @@ public class Vehicle extends Thread {
         this.interrupt();
     }
 
+
+    public double getOverallAverageSpeed() {
+        double secondsTravelled = (System.currentTimeMillis() - simulationTime)/1000.0;
+        double hoursTravelled = secondsTravelled/3600;
+        return totalDistanceTravelled/hoursTravelled;
+    }
+
     /**
      * Obtém o tempo total formatado em horas, minutos e segundos.
      *
      * @return O tempo total formatado.
      */
     public String getTotalTimeFormatted() {
-        long totalTimeTravelled = (System.currentTimeMillis() - simTime) / 1000;
+        long totalTimeTravelled = (System.currentTimeMillis() - simulationTime) / 1000;
         long hours = totalTimeTravelled / 3600;
         long minutes = (totalTimeTravelled % 3600) / 60;
         long secs = totalTimeTravelled % 60;
@@ -86,8 +134,12 @@ public class Vehicle extends Thread {
      * @param distanceCovered A distância percorrida.
      */
     public void updateTotalDistance(double distanceCovered) {
-        totalDistanceCovered += distanceCovered;
-        totalDistance += distanceCovered;
+        distanceInCurrentFlow += distanceCovered;
+        totalDistanceTravelled += distanceCovered;
+    }
+
+    public String getUpdatedRate() {
+        return String.format(Locale.US, "%.2f", currentFuelConsumptionRate) + " km/L";
     }
 
     /**
@@ -96,8 +148,8 @@ public class Vehicle extends Thread {
      * @return O consumo de combustível no formato "X.XX L".
      */
     public String getConsumption() {
-        updatedRate = calculateConsumptionRate(averageSpeed);
-        return String.format(Locale.US, "%.2f", totalDistance / calculateConsumptionRate(averageSpeed)) + " L";
+        currentFuelConsumptionRate = calculateConsumptionRate(reconciliationFluxSpeed);
+        return String.format(Locale.US, "%.2f", totalDistanceTravelled / calculateConsumptionRate(reconciliationFluxSpeed)) + " L";
     }
 
     /**
@@ -109,32 +161,20 @@ public class Vehicle extends Thread {
     public double calculateConsumptionRate(double speed) {
         double newRate = 0;
         if (speed <= 80) {
-            newRate = rateAt80;
+            newRate = consumptionRateAt80;
         } else if (speed <= 100) {
-            newRate = 0.8 * rateAt80;
+            newRate = 0.8 * consumptionRateAt80;
         } else if (speed <= 120) {
-            newRate = 0.6 * rateAt80;
+            newRate = 0.6 * consumptionRateAt80;
         } else if (speed > 120) {
-            newRate = 0.5 * rateAt80;
+            newRate = 0.5 * consumptionRateAt80;
         }
 
-        if (newRate > rateAt80) {
-            newRate = rateAt80;
+        if (newRate > consumptionRateAt80) {
+            newRate = consumptionRateAt80;
         }
 
         return newRate;
-    }
-
-    @Override
-    public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
-            double timeElapsed = (System.currentTimeMillis() - startTime) / (1000.0);
-            if (timeElapsed >= 45) { // Verifica se a distância percorrida é de 1 km ou mais
-                calculateOptimalSpeed(totalDistanceCovered, timeElapsed / (60 * 60));
-                totalDistanceCovered = 0; // Redefine a distância total percorrida
-                startTime = System.currentTimeMillis();
-            }
-        }
     }
 
     /**
@@ -143,16 +183,97 @@ public class Vehicle extends Thread {
      * @param distanceCovered A distância percorrida.
      * @param timeElapsed     O tempo decorrido.
      */
-    public void calculateOptimalSpeed(double distanceCovered, double timeElapsed) {
+    public void calculateSpeed(double distanceCovered, double timeElapsed) {
         // Distância que deveria ter sido percorrida a 80 km/h em 0,75 minutos
         // Ajuste de tempo
-        double subTrackSpeed = distanceCovered / timeElapsed;
-        averageSpeed = subTrackSpeed;
-        optimalSpeed = 80 * 80 / subTrackSpeed;
-        if (optimalSpeed > 120) {
-            optimalSpeed = 120;
+        reconciliationFluxSpeed = distanceCovered / timeElapsed;
+        System.out.println("calculated flux speed: " + reconciliationFluxSpeed);
+    }
+
+    public void addSpeed(float kmphSpeed) {
+        rawSpeedData.add((double) kmphSpeed);
+    }
+
+    private void updateSpeedData(){
+        System.out.println("average calculated speed from gps: " + SpeedStatistics.calculateAverageSpeed(rawSpeedData));
+        speedStandardDeviation.remove(0);
+        speedStandardDeviation.add(0,SpeedStatistics.calculateStandardDeviation(rawSpeedData));
+        rawSpeedData.clear();
+    }
+
+    public boolean hasReachedDestination(Location currentLocation) {
+        float[] results = new float[1];
+        Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), endPoint.latitude, endPoint.longitude, results);
+        float distanceInMeters = results[0];
+        return distanceInMeters < 50;
+    }
+
+    public void createReconciliationData(double totalDistance, double totalTime) {
+
+        if(totalDistance < 50){
+            secondsToNexMeasurement = 180; // tempo para percorrer 2km em s
+        } else if (totalDistance < 100) {
+            secondsToNexMeasurement = 360;
+        } else if (totalDistance < 200){
+            secondsToNexMeasurement = 720;
+        } else {
+            secondsToNexMeasurement = 1000;
         }
 
-        logger.info("Velocidade ideal atualizada: " + optimalSpeed + " km/h às " + new java.util.Date());
+        totalTravelTime = totalTime;
+        reconciliationSamplingPoints = totalTravelTime *60/ secondsToNexMeasurement;
+        System.out.println("Fluxos: " + (int) reconciliationSamplingPoints + " Nós: " + ((int) reconciliationSamplingPoints -1));
+        speedIncidenceMatrix = createIncidenceMatrix((int) reconciliationSamplingPoints);
+        fillSpeedData(processedSpeedData, (int) reconciliationSamplingPoints);
+    }
+
+    public static double[][] createIncidenceMatrix(int numNodes) {
+        // Crie uma matriz com (numNodes - 1) linhas e numNodes colunas
+        double[][] incidenceMatrix = new double[numNodes - 1][numNodes];
+
+        // Preencha a matriz
+        for (int i = 0; i < numNodes - 1; i++) {
+            // Coloque -1 na coluna que representa o fluxo de entrada
+            incidenceMatrix[i][i] = -1;
+
+            // Coloque 1 na coluna que representa o fluxo de saída
+            incidenceMatrix[i][i + 1] = 1;
+        }
+
+        return incidenceMatrix;
+    }
+
+    public void fillSpeedData(ArrayList<Double> speedData, int n) {
+        for (int i = 0; i < n; i++) {
+            speedData.add(80.0);
+            speedStandardDeviation.add(0.5);
+        }
+    }
+
+    public static double[] convertArrayListToArray(ArrayList<Double> list) {
+        double[] array = new double[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            array[i] = list.get(i);
+        }
+        return array;
+    }
+
+    public static void updateArrayList(ArrayList<Double> list, double newValue) {
+        if (list.size() > 1) {
+            list.remove(0);
+            list.set(0, newValue);
+        }
+    }
+
+    public static ArrayList<Double> convertArrayToArrayList(double[] array) {
+        ArrayList<Double> arrayList = new ArrayList<>();
+        for (double num : array) {
+            arrayList.add(num);
+        }
+        return arrayList;
+    }
+
+    public void setEndPoint(LatLng endLatLng) {
+        endPoint = endLatLng;
     }
 }

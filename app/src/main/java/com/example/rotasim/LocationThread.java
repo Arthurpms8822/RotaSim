@@ -58,8 +58,15 @@ public class LocationThread extends Thread {
                         double speedT = location.getSpeed();
                         double currentSpeed = round(speedT);
                         float kmphSpeed = round((currentSpeed * 3.6));
+                        vehicle.addSpeed(kmphSpeed);
                         vehicle.updateTotalDistance(distanceInMeters / 1000);
                         speedUpdateCallback.onSpeedUpdate(kmphSpeed, location);
+
+                        // Verifica se o veículo chegou ao destino
+                        if (vehicle.hasReachedDestination(location)) {
+                            stopTracking();
+                            break;
+                        }
                     }
                     previousLocation = location;
                 }
