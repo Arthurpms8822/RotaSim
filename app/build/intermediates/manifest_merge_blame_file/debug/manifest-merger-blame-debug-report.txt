@@ -10,18 +10,18 @@
 9        android:targetSdkVersion="33" />
 9-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml
 10
-11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-11-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:42:5-79
-11-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:42:22-76
-12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-12-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:43:5-81
-12-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:43:22-78
-13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-13-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:11:5-76
-13-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:11:22-73
-14    <uses-permission android:name="android.permission.INTERNET" /> <!-- Include required permissions for Google Maps API to run. -->
-14-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:12:5-67
-14-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:12:22-64
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:44:5-67
+11-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:44:22-64
+12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+12-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:45:5-79
+12-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:45:22-76
+13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+13-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:46:5-81
+13-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:46:22-78
+14    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Include required permissions for Google Maps API to run. -->
+14-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:11:5-76
+14-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:11:22-73
 15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 15-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:23:5-79
 15-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:23:22-76
@@ -54,7 +54,7 @@
 31-->[androidx.core:core:1.9.0] C:\Users\joao_\.gradle\caches\transforms-3\2033df00c88964735466d344a7495998\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 32
 33    <application
-33-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:5:5-40:19
+33-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:5:5-43:19
 34        android:allowBackup="true"
 34-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:6:9-35
 35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -72,133 +72,135 @@
 42        android:supportsRtl="true"
 42-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:11:9-35
 43        android:testOnly="true"
-44        android:theme="@style/Theme.RotaSim" >
+44        android:theme="@style/Theme.RotaSim"
 44-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:12:9-45
-45
-46        <!--
-47             TODO: Before you run your application, you need a Google Maps API key.
-48
-49             To get one, follow the directions here:
-50
-51                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-52
-53             Once you have your API key (it starts with "AIza"), define a new property in your
-54             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-55             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-56        -->
-57        <meta-data
-57-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:26:9-28:71
-58            android:name="com.google.android.geo.API_KEY"
-58-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:27:13-58
-59            android:value="AIzaSyB48taeeYRzcr5yAIXT518ODCvDY141HPc" />
-59-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:28:13-68
-60
-61        <activity
-61-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:30:9-39:20
-62            android:name="com.example.rotasim.MapsActivity"
-62-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:31:13-41
-63            android:exported="true"
-63-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:32:13-36
-64            android:label="@string/title_activity_maps" >
-64-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:33:13-56
-65            <intent-filter>
-65-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:34:13-38:29
-66                <action android:name="android.intent.action.MAIN" />
-66-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:35:17-69
-66-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:35:25-66
-67
-68                <category android:name="android.intent.category.LAUNCHER" />
-68-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:37:17-77
-68-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:37:27-74
-69            </intent-filter>
-70        </activity>
-71        <activity
-71-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:15:9-21:20
-72            android:name="com.google.android.libraries.places.widget.AutocompleteActivity"
-72-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:16:13-91
-73            android:exported="false"
-73-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:17:13-37
-74            android:label="@string/places_autocomplete_label"
-74-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:18:13-62
-75            android:theme="@style/PlacesAutocompleteOverlay"
-75-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:19:13-61
-76            android:windowSoftInputMode="adjustResize" >
-76-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:20:13-55
-77        </activity> <!-- Needs to be explicitly declared on P+ -->
-78        <uses-library
-78-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:39:9-41:40
-79            android:name="org.apache.http.legacy"
-79-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:40:13-50
-80            android:required="false" />
-80-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:41:13-37
-81
-82        <activity
-82-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
-83            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-83-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:19-85
-84            android:exported="false"
-84-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:22:19-43
-85            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-85-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:21:19-78
-86
-87        <meta-data
-87-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\joao_\.gradle\caches\transforms-3\b149a4a68db7a75ac12c3e336a2af80e\transformed\play-services-basement-18.0.0\AndroidManifest.xml:21:9-23:69
-88            android:name="com.google.android.gms.version"
-88-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\joao_\.gradle\caches\transforms-3\b149a4a68db7a75ac12c3e336a2af80e\transformed\play-services-basement-18.0.0\AndroidManifest.xml:22:13-58
-89            android:value="@integer/google_play_services_version" />
-89-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\joao_\.gradle\caches\transforms-3\b149a4a68db7a75ac12c3e336a2af80e\transformed\play-services-basement-18.0.0\AndroidManifest.xml:23:13-66
-90
-91        <provider
-91-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-92            android:name="androidx.startup.InitializationProvider"
-92-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
-93            android:authorities="com.example.rotasim.androidx-startup"
-93-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
-94            android:exported="false" >
-94-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
-95            <meta-data
-95-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-96                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-96-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
-97                android:value="androidx.startup" />
-97-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
-98            <meta-data
-98-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\joao_\.gradle\caches\transforms-3\82aa4e2be19cd579e54c2d64889c1a1b\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-99                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-99-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\joao_\.gradle\caches\transforms-3\82aa4e2be19cd579e54c2d64889c1a1b\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-100                android:value="androidx.startup" />
-100-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\joao_\.gradle\caches\transforms-3\82aa4e2be19cd579e54c2d64889c1a1b\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-101        </provider>
-102
-103        <service
-103-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:29:9-35:19
-104            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
-104-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:30:13-103
-105            android:exported="false" >
-105-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:31:13-37
-106            <meta-data
-106-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:32:13-34:39
-107                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
-107-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:33:17-94
-108                android:value="cct" />
-108-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:34:17-36
-109        </service>
-110        <service
-110-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:26:9-30:19
-111            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
-111-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:27:13-117
-112            android:exported="false"
-112-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:28:13-37
-113            android:permission="android.permission.BIND_JOB_SERVICE" >
-113-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:29:13-69
-114        </service>
-115
-116        <receiver
-116-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:32:9-34:40
-117            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
-117-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:33:13-132
-118            android:exported="false" />
-118-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:34:13-37
-119    </application>
-120
-121</manifest>
+45        android:usesCleartextTraffic="true" >
+45-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:14:9-44
+46
+47        <!--
+48             TODO: Before you run your application, you need a Google Maps API key.
+49
+50             To get one, follow the directions here:
+51
+52                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+53
+54             Once you have your API key (it starts with "AIza"), define a new property in your
+55             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+56             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+57        -->
+58        <meta-data
+58-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:29:9-31:71
+59            android:name="com.google.android.geo.API_KEY"
+59-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:30:13-58
+60            android:value="AIzaSyB48taeeYRzcr5yAIXT518ODCvDY141HPc" />
+60-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:31:13-68
+61
+62        <activity
+62-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:33:9-42:20
+63            android:name="com.example.rotasim.MapsActivity"
+63-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:34:13-41
+64            android:exported="true"
+64-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:35:13-36
+65            android:label="@string/title_activity_maps" >
+65-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:36:13-56
+66            <intent-filter>
+66-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:37:13-41:29
+67                <action android:name="android.intent.action.MAIN" />
+67-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:38:17-69
+67-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:38:25-66
+68
+69                <category android:name="android.intent.category.LAUNCHER" />
+69-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:40:17-77
+69-->C:\Users\joao_\OneDrive\Documentos\RotaSim\app\src\main\AndroidManifest.xml:40:27-74
+70            </intent-filter>
+71        </activity>
+72        <activity
+72-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:15:9-21:20
+73            android:name="com.google.android.libraries.places.widget.AutocompleteActivity"
+73-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:16:13-91
+74            android:exported="false"
+74-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:17:13-37
+75            android:label="@string/places_autocomplete_label"
+75-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:18:13-62
+76            android:theme="@style/PlacesAutocompleteOverlay"
+76-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:19:13-61
+77            android:windowSoftInputMode="adjustResize" >
+77-->[com.google.android.libraries.places:places:3.1.0] C:\Users\joao_\.gradle\caches\transforms-3\76484396d80d2a48036f9211bd698dc1\transformed\places-3.1.0\AndroidManifest.xml:20:13-55
+78        </activity> <!-- Needs to be explicitly declared on P+ -->
+79        <uses-library
+79-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:39:9-41:40
+80            android:name="org.apache.http.legacy"
+80-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:40:13-50
+81            android:required="false" />
+81-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\joao_\.gradle\caches\transforms-3\08617ebb6f83777ccd34cc30d290d56f\transformed\play-services-maps-18.1.0\AndroidManifest.xml:41:13-37
+82
+83        <activity
+83-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+84            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+84-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+85            android:exported="false"
+85-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+86            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+86-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\joao_\.gradle\caches\transforms-3\f203588258979c9cea5e4c48c3081c3e\transformed\play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+87
+88        <meta-data
+88-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\joao_\.gradle\caches\transforms-3\b149a4a68db7a75ac12c3e336a2af80e\transformed\play-services-basement-18.0.0\AndroidManifest.xml:21:9-23:69
+89            android:name="com.google.android.gms.version"
+89-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\joao_\.gradle\caches\transforms-3\b149a4a68db7a75ac12c3e336a2af80e\transformed\play-services-basement-18.0.0\AndroidManifest.xml:22:13-58
+90            android:value="@integer/google_play_services_version" />
+90-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\joao_\.gradle\caches\transforms-3\b149a4a68db7a75ac12c3e336a2af80e\transformed\play-services-basement-18.0.0\AndroidManifest.xml:23:13-66
+91
+92        <provider
+92-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+93            android:name="androidx.startup.InitializationProvider"
+93-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+94            android:authorities="com.example.rotasim.androidx-startup"
+94-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+95            android:exported="false" >
+95-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+96            <meta-data
+96-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+97                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+97-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+98                android:value="androidx.startup" />
+98-->[androidx.emoji2:emoji2:1.2.0] C:\Users\joao_\.gradle\caches\transforms-3\11fcfac137e125697c613e39357dafde\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+99            <meta-data
+99-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\joao_\.gradle\caches\transforms-3\82aa4e2be19cd579e54c2d64889c1a1b\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+100                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+100-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\joao_\.gradle\caches\transforms-3\82aa4e2be19cd579e54c2d64889c1a1b\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+101                android:value="androidx.startup" />
+101-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\joao_\.gradle\caches\transforms-3\82aa4e2be19cd579e54c2d64889c1a1b\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+102        </provider>
+103
+104        <service
+104-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:29:9-35:19
+105            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+105-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:30:13-103
+106            android:exported="false" >
+106-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:31:13-37
+107            <meta-data
+107-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:32:13-34:39
+108                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+108-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:33:17-94
+109                android:value="cct" />
+109-->[com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\joao_\.gradle\caches\transforms-3\513ad4513c698ffc2197624d9e49bfe2\transformed\transport-backend-cct-2.3.0\AndroidManifest.xml:34:17-36
+110        </service>
+111        <service
+111-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:26:9-30:19
+112            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+112-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:27:13-117
+113            android:exported="false"
+113-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:28:13-37
+114            android:permission="android.permission.BIND_JOB_SERVICE" >
+114-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:29:13-69
+115        </service>
+116
+117        <receiver
+117-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:32:9-34:40
+118            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+118-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:33:13-132
+119            android:exported="false" />
+119-->[com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\joao_\.gradle\caches\transforms-3\7b985970dea39709dce90e3abc288dc0\transformed\transport-runtime-2.2.3\AndroidManifest.xml:34:13-37
+120    </application>
+121
+122</manifest>

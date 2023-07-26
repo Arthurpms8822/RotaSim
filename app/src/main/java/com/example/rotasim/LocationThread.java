@@ -60,6 +60,7 @@ public class LocationThread extends Thread {
                         float kmphSpeed = round((currentSpeed * 3.6));
                         vehicle.addSpeed(kmphSpeed);
                         vehicle.updateTotalDistance(distanceInMeters / 1000);
+                        vehicle.setLocationAndSpeed(kmphSpeed, location);
                         speedUpdateCallback.onSpeedUpdate(kmphSpeed, location);
 
                         // Verifica se o veículo chegou ao destino

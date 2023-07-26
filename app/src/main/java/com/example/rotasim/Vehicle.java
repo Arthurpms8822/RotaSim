@@ -1,10 +1,25 @@
 package com.example.rotasim;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import android.location.Location;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Vehicle extends Thread {
 
@@ -37,6 +52,9 @@ public class Vehicle extends Thread {
     // Estado da simulação
     private boolean isSimulationRunning = false; // A simulação está rodando
     private LatLng endPoint;
+    private double totalTravelDistance;
+    private float currentSpeed;
+    private Location currentLocation;
 
 
     public Vehicle(double rate) {
@@ -46,7 +64,8 @@ public class Vehicle extends Thread {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            double timeElapsed = (System.currentTimeMillis() - simulationStartTime) / (1000.0); //Calcula o tempo passado para checar quando o tempo for igual ao desejado para cada nó
+            double timeElapsed = (System.currentTimeMillis() - simulationStartTime) / (1000.0);
+            //Calcula o tempo passado para checar quando o tempo for igual ao desejado para cada nó
             if (timeElapsed >= secondsToNexMeasurement) {
                 updateSpeedData();
                 calculateSpeed(distanceInCurrentFlow, timeElapsed / (60 * 60)); //Calcula a velocidade no último fluxo
@@ -62,7 +81,7 @@ public class Vehicle extends Thread {
                 Reconciliation rec = new Reconciliation();
                 rec.reconcile(y, v, A);
                 System.out.println("Velocidades reconciliadas: " + new java.util.Date());
-                System.out.println("Fluxo: F" + ((int) reconciliationSamplingPoints - processedSpeedData.size()));
+                System.out.println("Fluxo: F" + reconciliationIteration);
                 System.out.println("Raw Measurements:");
                 rec.printMatrix(y);
                 System.out.print("Interation: ");
@@ -72,8 +91,116 @@ public class Vehicle extends Thread {
                 optimalDrivingSpeed = rec.getReconciledFlow()[0]; //Atualiza a velocidade otimizada para o prox fluxo de medição
                 distanceInCurrentFlow = 0; // Reseta a distância percorrida no fluxo
                 simulationStartTime = System.currentTimeMillis(); // Reseta a contagem de tempo
+                y[0] = rec.getReconciledFlow()[0];
+                double[] newSpeeds;
+                if (processedSpeedData.size() <= 2){
+                    newSpeeds = new double[] { y[0] };
+                } else {
+                    newSpeeds = y;
+                }
+                double distanceToArive = getDistanceToArrive(newSpeeds);
+                System.out.println("Distance Covered:" + totalDistanceTravelled + " Total Distance: " + totalTravelDistance + "Diference: " + (totalTravelDistance - totalDistanceTravelled));
+                System.out.println("remaining distance at reconciliated speed:" + distanceToArive);
+                System.out.println("Total travel time: " + minutesToHours(totalTravelTime) + "h Travelled time:" + miliSecondsToHours(System.currentTimeMillis() - simulationTime) + "h");
+                try {
+                    sendJSONData(convertToJson(y,distanceToArive));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
+    }
+
+    public String convertToJson(double[] y, double distanceToArive) {
+        Gson gson = new Gson();
+
+        // Cria um mapa para armazenar os dados
+        Map<String, Object> data = new HashMap<>();
+
+        // Cria um mapa para armazenar os dados de localização
+        Map<String, Object> locationData = new HashMap<>();
+        locationData.put("latitude", currentLocation.getLatitude());
+        locationData.put("longitude", currentLocation.getLongitude());
+        locationData.put("altitude", currentLocation.getAltitude());
+
+        // Cria um mapa para armazenar os dados de latitude longitude do destino
+        Map<String, Object> endPointData = new HashMap<>();
+        endPointData.put("latitude", endPoint.latitude);
+        endPointData.put("longitude", endPoint.longitude);
+
+        // Adicione outros atributos conforme necessário
+
+        // Adicione os dados ao mapa
+        //data.put("y", y);
+        data.put("distanceToArive", distanceToArive);
+        data.put("location", locationData); // Adicione o mapa de dados de localização
+        data.put("id", "veiculo1"); // Substitua id pela sua string de id
+        data.put("endPointData", endPointData); // Substitua id pela sua string de id
+
+        // Converte o mapa para JSON
+        String json = gson.toJson(data);
+
+        return json;
+    }
+
+
+    private void sendJSONData(String json) throws Exception {
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+        String encryptedJSON = CryptoUtils.encrypt(json);
+
+        Gson gson = new Gson();
+        Map<String, String> map = new HashMap<>();
+        map.put("data", encryptedJSON);
+        String jsonToSend = gson.toJson(map);
+
+        RequestBody body = RequestBody.create(mediaType, jsonToSend);
+
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:5000/send") // Replace with the IP and port of the server
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    // Do something with the response.
+                    System.out.println(response.body().string());
+                }
+            }
+        });
+    }
+
+    public void reconciliationProcess(){
+        double reconciliationPointDistance = 0;
+        double reconciliationFluxTime;
+        double[] reconciliationPointsTimes; // vetor a ser reconciliado
+        double[] reconciliationPointsTimesDeviation;
+
+        if(totalTravelDistance < 50) {
+            reconciliationPointDistance = 10;
+        }
+    }
+
+    private double secondsToHours(double seconds){
+        return seconds/3600;
+    }
+
+    private double minutesToHours(double minutes) {
+        return minutes/60;
+    }
+
+    private double miliSecondsToHours(double miliSeconds){
+        return miliSeconds/3600000;
     }
 
     public double getTotalDistanceTravelled() {
@@ -98,6 +225,16 @@ public class Vehicle extends Thread {
         simulationStartTime = System.currentTimeMillis();
         simulationTime = simulationStartTime;
         start();
+    }
+
+    private double getDistanceToArrive(double[] speedData ){
+        double totalDistance = 0.0;
+        for (double speed : speedData) {
+            // A distância é velocidade vezes tempo.
+            // Como a velocidade está em km/h e o tempo em horas, o resultado será em km.
+            totalDistance += speed * (secondsToNexMeasurement/3600);
+        }
+        return totalDistance;
     }
 
     /**
@@ -211,7 +348,7 @@ public class Vehicle extends Thread {
     public void createReconciliationData(double totalDistance, double totalTime) {
 
         if(totalDistance < 50){
-            secondsToNexMeasurement = 180; // tempo para percorrer 2km em s
+            secondsToNexMeasurement = 60; // tempo para cada nó da reconciliação
         } else if (totalDistance < 100) {
             secondsToNexMeasurement = 360;
         } else if (totalDistance < 200){
@@ -219,7 +356,7 @@ public class Vehicle extends Thread {
         } else {
             secondsToNexMeasurement = 1000;
         }
-
+        totalTravelDistance = totalDistance;
         totalTravelTime = totalTime;
         reconciliationSamplingPoints = totalTravelTime *60/ secondsToNexMeasurement;
         System.out.println("Fluxos: " + (int) reconciliationSamplingPoints + " Nós: " + ((int) reconciliationSamplingPoints -1));
@@ -275,5 +412,10 @@ public class Vehicle extends Thread {
 
     public void setEndPoint(LatLng endLatLng) {
         endPoint = endLatLng;
+    }
+
+    public void setLocationAndSpeed(float kmphSpeed, Location location) {
+        currentSpeed = kmphSpeed;
+        currentLocation = location;
     }
 }
