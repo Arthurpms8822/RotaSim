@@ -180,16 +180,6 @@ public class Vehicle extends Thread {
         });
     }
 
-    public void reconciliationProcess(){
-        double reconciliationPointDistance = 0;
-        double reconciliationFluxTime;
-        double[] reconciliationPointsTimes; // vetor a ser reconciliado
-        double[] reconciliationPointsTimesDeviation;
-
-        if(totalTravelDistance < 50) {
-            reconciliationPointDistance = 10;
-        }
-    }
 
     private double secondsToHours(double seconds){
         return seconds/3600;
