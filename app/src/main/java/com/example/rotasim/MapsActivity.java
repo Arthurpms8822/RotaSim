@@ -400,6 +400,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public interface RouteCallback {
-        void onRouteDrawn(String totalDistance, String totalTime, double totalDistanceDouble, double totalTimeDouble);
+        void onRouteDrawn(String totalDistance, String totalTime, double totalDistanceDouble, double totalTimeDouble) throws Exception;
     }
 }

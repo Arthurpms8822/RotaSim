@@ -190,7 +190,11 @@ public class RouteDrawer {
             }
             // Notificar o callback
             if (routeCallback != null) {
-                routeCallback.onRouteDrawn(totalDistance, totalTime, totalDistanceValue, totalTimeValue);
+                try {
+                    routeCallback.onRouteDrawn(totalDistance, totalTime, totalDistanceValue, totalTimeValue);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
