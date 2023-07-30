@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="72e82686-6c5c-46a4-a54e-38971a385212" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CrossDocking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrossDockingVehicle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.gradle/7.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/apk/debug/app-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/dex/debug/mergeProjectDexDebug/8/classes.dex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/dex/debug/mergeProjectDexDebug/8/classes.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/MapsActivity$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/MapsActivity$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/MapsActivity$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/MapsActivity$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/MapsActivity.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/MapsActivity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/Vehicle.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/javac/debug/classes/com/example/rotasim/Vehicle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/MapsActivity$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/MapsActivity$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/MapsActivity$2.dex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/MapsActivity$2.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/MapsActivity.dex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/MapsActivity.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/Vehicle.dex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/intermediates/project_dex_archive/debug/out/com/example/rotasim/Vehicle.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MapsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/MapsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Vehicle.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../.." />
+  </component>
+  <component name="ProjectId" id="2TIEsc0jk9o1Nwqs22ATddIgcUT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "C:/Users/joao_/OneDrive/Documentos/RotaSim/app/src/main/java/com/example/rotasim"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="72e82686-6c5c-46a4-a54e-38971a385212" name="Changes" comment="" />
+      <created>1690722401890</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1690722401890</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
@@ -39,10 +41,20 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -68,6 +80,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // Indica se o veículo é elétrico ou não
     private Boolean isElectric = false;
+
+    private final int FETCH_INTERVAL = 1000; // Fetch data every 5 seconds
+    private Handler mHandler;
+    private RouteDrawer crossRoute;
+    private Marker crossVehicleMarker = null;
 
     // Método chamado quando a atividade é criada
     @Override
@@ -96,7 +113,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         efficiency = findViewById(R.id.eficiency);
         averageSpeed = findViewById(R.id.average_speed);
 
-
+        mHandler = new Handler();
+        startRepeatingTask();
 
         // Definindo o comportamento do botão de geração de rota
         buttonGenerateRoute.setOnClickListener(v -> {
@@ -178,7 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     averageSpeed.setText(averageSpeedStr);
 
                     // Atualiza a posição do marcador no mapa
-                    if (mMap != null) {
+                    if (mMap != null && crossVehicleMarker == null) {
                         LatLng newLatLng = new LatLng(newLocation.getLatitude(), newLocation.getLongitude());
                         float zoomLevel = 16.0f; // Nível de zoom desejado. Este valor pode ser ajustado conforme necessário.
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, zoomLevel));
@@ -401,5 +419,141 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public interface RouteCallback {
         void onRouteDrawn(String totalDistance, String totalTime, double totalDistanceDouble, double totalTimeDouble) throws Exception;
+    }
+
+    private void fetchJSON() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:5000/receive")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    JSONObject jsonObject;
+                    if(myResponse.isEmpty()){
+                        return;
+                    }
+
+                    try {
+                        jsonObject = new JSONObject(myResponse);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    // Extract the encrypted string from the JSON object
+                    String encryptedData;
+                    if (!jsonObject.has("data")) {
+                        // The JSON object does not contain the "data" key, so there is nothing to decrypt
+                        return;
+                    }
+                    try {
+                        encryptedData = jsonObject.getString("data");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    // Decrypt the encrypted string
+                    String decryptedData;
+                    try {
+                        decryptedData = CryptoUtils.decrypt(encryptedData);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    JSONObject decryptedJson;
+                    try {
+                        decryptedJson = new JSONObject(decryptedData);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String vehicleId;
+                    double distanceToArrive;
+                    double latitude;
+                    double longitude;
+                    double endPointLat;
+                    double endPointLong;
+                    try {
+                        vehicleId = decryptedJson.getString("id");
+                        distanceToArrive = decryptedJson.getDouble("distanceToArive");
+                        JSONObject location = decryptedJson.getJSONObject("location");
+                        JSONObject endPoint = decryptedJson.getJSONObject("endPoint");
+                        endPointLat = endPoint.getDouble("latitude");
+                        endPointLong = endPoint.getDouble("longitude");
+                        latitude = location.getDouble("latitude");
+                        longitude = location.getDouble("longitude");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (vehicle.vehicleId.toString() == vehicleId){
+                        return;
+                    }
+
+                    LatLng vehiclePosition = new LatLng(latitude, longitude);
+                    LatLng endPointPosition = new LatLng(endPointLat,endPointLong);
+                    if (mMap!=null) {
+                        crossRoute = new RouteDrawer(mMap, "AIzaSyB48taeeYRzcr5yAIXT518ODCvDY141HPc", new RouteCallback() {
+                            @Override
+                            public void onRouteDrawn(String totalDistance, String totalTime, double totalDistanceDouble, double totalTimeDouble) throws Exception {
+                                runOnUiThread(() -> {
+                                });
+                            }
+                        });
+                        crossRoute.drawRoute(vehiclePosition, endPointPosition);
+                    }
+
+
+                    CrossDocking crossDocking = new CrossDocking(vehicle.getVehicleCrossDocking(), new CrossDockingVehicle(vehicleId,distanceToArrive,vehiclePosition,endPointPosition));
+                    crossDocking.sendTimeDifference();
+
+                    MapsActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Marker marker = crossVehicleMarker;
+                            if (marker == null) {
+                                // This is a new vehicle, so add a new marker for it
+                                marker = mMap.addMarker(new MarkerOptions().position(vehiclePosition).title(vehicleId));
+                                crossVehicleMarker = marker;
+                            } else {
+                                // This is an existing vehicle, so update its marker
+                                marker.setPosition(vehiclePosition);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                fetchJSON(); // This function can change value of mInterval.
+            } finally {
+                mHandler.postDelayed(mStatusChecker, FETCH_INTERVAL);
+            }
+        }
+    };
+
+    void startRepeatingTask() {
+        mStatusChecker.run();
+    }
+
+    void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopRepeatingTask();
     }
 }
