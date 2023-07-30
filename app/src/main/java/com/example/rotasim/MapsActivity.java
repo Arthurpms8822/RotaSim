@@ -85,6 +85,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Handler mHandler;
     private RouteDrawer crossRoute;
     private Marker crossVehicleMarker = null;
+    private Boolean doCrossDocking = false;
+    private SwitchMaterial switchCrossDocking;
+    private TransportService transportService;
+
+    private Boolean transportServiceTag = true;
 
     // Método chamado quando a atividade é criada
     @Override
@@ -113,12 +118,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         efficiency = findViewById(R.id.eficiency);
         averageSpeed = findViewById(R.id.average_speed);
 
-        mHandler = new Handler();
-        startRepeatingTask();
 
         // Definindo o comportamento do botão de geração de rota
         buttonGenerateRoute.setOnClickListener(v -> {
-           vehicle = createVehicle(isElectric);
+           vehicle = createVehicle(isElectric); // polimorfismo para criação do veiculo
             // O código abaixo obtém os nomes dos lugares de partida e chegada, e em seguida obtém seus respectivos IDs e coordenadas
             // Os IDs e coordenadas são então usados para desenhar a rota no mapa
             String startLocationName = startLocation.getText().toString();
@@ -165,6 +168,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SwitchMaterial switchVehicleType = findViewById(R.id.switch_vehicle_type);
         switchVehicleType.setOnCheckedChangeListener((buttonView, isChecked) -> isElectric = isChecked);
 
+        switchCrossDocking = findViewById(R.id.switch_cross_docking);
+        switchCrossDocking.setOnCheckedChangeListener((buttonView, isChecked) -> doCrossDocking = isChecked);
+
 
         buttonStartSimulation.setOnClickListener(v->{
 
@@ -208,6 +214,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Inicia a thread de localização e a simulação
                 locationThread.start();
                 locationThread.startTracking();
+                mHandler = new Handler();
+                startRepeatingTask();
             }
         });
 
@@ -420,6 +428,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public interface RouteCallback {
         void onRouteDrawn(String totalDistance, String totalTime, double totalDistanceDouble, double totalTimeDouble) throws Exception;
     }
+    private void fetchCrossJSON() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:5000/receiveNewTime")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful() && vehicle.vehicleId != null) {
+                    final String myResponse = response.body().string();
+                    JSONObject jsonObject;
+                    if(myResponse.isEmpty()){
+                        return;
+                    }
+
+                    try {
+                        jsonObject = new JSONObject(myResponse);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    // Extract the encrypted string from the JSON object
+                   double newTime;
+                    if (!jsonObject.has("newTime")) {
+                        // The JSON object does not contain the "newTime" key, so there is nothing to decrypt
+                        return;
+                    }
+                    try {
+                        newTime = jsonObject.getDouble("newTime");
+                        vehicle.updateCrossDockingReconTimes(newTime);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            }
+        });
+    }
 
     private void fetchJSON() {
         OkHttpClient client = new OkHttpClient();
@@ -435,7 +486,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && vehicle.vehicleId != null) {
                     final String myResponse = response.body().string();
                     JSONObject jsonObject;
                     if(myResponse.isEmpty()){
@@ -474,14 +525,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
 
                     String vehicleId;
-                    double distanceToArrive;
+                    double timeToArive;
                     double latitude;
                     double longitude;
                     double endPointLat;
                     double endPointLong;
                     try {
                         vehicleId = decryptedJson.getString("id");
-                        distanceToArrive = decryptedJson.getDouble("distanceToArive");
+                        timeToArive = decryptedJson.getDouble("timeToArive");
                         JSONObject location = decryptedJson.getJSONObject("location");
                         JSONObject endPoint = decryptedJson.getJSONObject("endPoint");
                         endPointLat = endPoint.getDouble("latitude");
@@ -491,13 +542,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    if (vehicle.vehicleId.toString() == vehicleId){
-                        return;
-                    }
+
+
 
                     LatLng vehiclePosition = new LatLng(latitude, longitude);
                     LatLng endPointPosition = new LatLng(endPointLat,endPointLong);
-                    if (mMap!=null) {
+                    if (mMap!=null) { // Desenha a rota dos outros veiculos no mapa
                         crossRoute = new RouteDrawer(mMap, "AIzaSyB48taeeYRzcr5yAIXT518ODCvDY141HPc", new RouteCallback() {
                             @Override
                             public void onRouteDrawn(String totalDistance, String totalTime, double totalDistanceDouble, double totalTimeDouble) throws Exception {
@@ -509,21 +559,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
 
 
-                    CrossDocking crossDocking = new CrossDocking(vehicle.getVehicleCrossDocking(), new CrossDockingVehicle(vehicleId,distanceToArrive,vehiclePosition,endPointPosition));
-                    crossDocking.sendTimeDifference();
+
+                    if(doCrossDocking){ //checagem se vai fazer a reconciliação com crossdocking
+                        CrossDocking crossDocking = new CrossDocking(vehicle.getVehicleCrossDocking(), new CrossDockingVehicle(vehicleId,timeToArive,vehiclePosition,endPointPosition));
+                        crossDocking.sendTimeDifference();
+                        if(transportServiceTag) {
+                            transportService = new TransportService();
+                            transportService.createTransportService("Arthur", vehicle.vehicleId.toString(), vehicleId);
+                            transportServiceTag = false;
+                        }
+                    }
+
 
                     MapsActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
                             Marker marker = crossVehicleMarker;
-                            if (marker == null) {
-                                // This is a new vehicle, so add a new marker for it
-                                marker = mMap.addMarker(new MarkerOptions().position(vehiclePosition).title(vehicleId));
-                                crossVehicleMarker = marker;
-                            } else {
-                                // This is an existing vehicle, so update its marker
-                                marker.setPosition(vehiclePosition);
+
+                            if (vehicle.vehicleId.toString() == vehicleId) {
+                                if (marker == null) {
+                                    // Novo marcador caso seja um novo veiculo
+                                    marker = mMap.addMarker(new MarkerOptions().position(vehiclePosition).title(vehicleId));
+                                    crossVehicleMarker = marker;
+                                } else {
+                                    // atualiza a posição de um veiculo existente
+                                    marker.setPosition(vehiclePosition);
+                                }
                             }
                         }
                     });
@@ -532,11 +594,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    Runnable mStatusChecker = new Runnable() {
+    Runnable mStatusChecker = new Runnable() { //Thread de comunicação JSON
         @Override
         public void run() {
             try {
-                fetchJSON(); // This function can change value of mInterval.
+                if(doCrossDocking) {
+                    fetchJSON(); // This function can change value of mInterval.
+                    fetchCrossJSON();
+                }
             } finally {
                 mHandler.postDelayed(mStatusChecker, FETCH_INTERVAL);
             }
@@ -544,7 +609,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     };
 
     void startRepeatingTask() {
-        mStatusChecker.run();
+            mStatusChecker.run();
     }
 
     void stopRepeatingTask() {

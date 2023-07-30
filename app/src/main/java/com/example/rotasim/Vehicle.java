@@ -60,7 +60,6 @@ public class Vehicle extends Thread {
     private boolean isSimulationRunning = false; // A simulação está rodando
     private LatLng endPoint;
     private double totalTravelDistance;
-    private float currentSpeed;
     private Location currentLocation;
     private ArrayList<Double> pointsTimes = new ArrayList<>();
     private ArrayList<Double> timeStandardDeviation = new ArrayList<>();
@@ -80,7 +79,7 @@ public class Vehicle extends Thread {
     @Override
     public void run() {
 
-            // Inicie a execução do método sendJSONData a cada 2 segundos
+            // Inicie a execução do método sendJSONData a cada 2 segundos para enviar a localização para os outros veiculos
             executor.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
@@ -106,6 +105,7 @@ public class Vehicle extends Thread {
 
     private void reconciliateAndSend(double timeElapsed){
         double F1_novo = (fluxTimeExpected + (fluxTimeExpected - timeElapsed));
+        System.out.println("FluxTimeExpected: " + fluxTimeExpected);
         calculateSpeed(distanceInCurrentFlow, timeElapsed / (60 * 60)); //Calcula a velocidade no último fluxo
         double[] reconciliatedTimes = new double[] {};
         if (pointsTimes.size() > 2) { //somente para evitar crashes no ultimo fluxo (não é possivel reconciliar um vetor com menos de dois valores
@@ -118,7 +118,7 @@ public class Vehicle extends Thread {
             double[][] A = speedIncidenceMatrix;
 
             Reconciliation rec = new Reconciliation();
-            rec.reconcile(y, v, A);
+            rec.reconcile(y, v, A); //Alterei o processo de reconciliar para um método
             System.out.println("Tempos reconciliados: " + new java.util.Date());
             System.out.println("Fluxo: F" + (reconciliationIteration++));
             System.out.println("Raw Measurements:");
@@ -130,7 +130,7 @@ public class Vehicle extends Thread {
             optimalDrivingSpeed = fluxDistance / secondsToHours(rec.getReconciledFlow()[0]); //Atualiza a velocidade otimizada para o prox fluxo de medição
             distanceInCurrentFlow = 0; // Reseta a distância percorrida no fluxo
             simulationStartTime = System.currentTimeMillis(); // Reseta a contagem de tempo
-            pointsTimes = convertArrayToArrayList(y);
+            pointsTimes = convertArrayToArrayList(y); //Atualiza o vetor de tempos para chegar no tempo total previsto
             reconciliatedTimes = convertArrayListToArray(pointsTimes);
         } else {
             reconciliatedTimes = convertArrayListToArray(pointsTimes);
@@ -149,6 +149,14 @@ public class Vehicle extends Thread {
         }
     }
 
+    public void updateCrossDockingReconTimes(double newTotalTime){ //Atualização do novo tempo para chegar do crossDocking e reconcilia novamente
+        if (newTotalTime != timeToArrive) {
+            double lastFluxTime = fluxTimeExpected;
+            fluxTimeExpected = newTotalTime / (reconciliationSamplingPoints - reconciliationIteration);
+            System.out.println("Tempo de cada fluxo atualizado crossDocking: " + fluxTimeExpected + " Tempo antigo: " + lastFluxTime);
+        }
+    }
+
     public static int findLargestDivisor(int number) {
         int maxDivisor = 1; // Inicializa o maior divisor como 1
         for (int i = 2; i <= number / 2; i++) { // Começa de 2 e vai até a metade do número
@@ -159,7 +167,7 @@ public class Vehicle extends Thread {
         return maxDivisor;
     }
 
-    public String convertToJson(double distanceToArive) {
+    public String convertToJson(double timeToArive) {
         Gson gson = new Gson();
 
         // Cria um mapa para armazenar os dados
@@ -179,7 +187,7 @@ public class Vehicle extends Thread {
         // Adicione outros atributos conforme necessário
 
         // Adicione os dados ao mapa
-        data.put("distanceToArive", distanceToArive);
+        data.put("timeToArive", timeToArive);
         data.put("location", locationData); // Adicione o mapa de dados de localização
         data.put("id", vehicleId); // Substitua id pela sua string de id
         data.put("endPoint", endPointData); // Substitua id pela sua string de id
@@ -191,7 +199,7 @@ public class Vehicle extends Thread {
     }
 
 
-    private void sendJSONData(String json) throws Exception {
+    private void sendJSONData(String json) throws Exception { //Cria uma requisição, criptografa o JSON e o envia
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
@@ -202,7 +210,7 @@ public class Vehicle extends Thread {
         map.put("data", encryptedJSON);
         String jsonToSend = gson.toJson(map);
 
-        RequestBody body = RequestBody.create(mediaType, jsonToSend);
+        RequestBody body = RequestBody.create(mediaType, jsonToSend); //Envia para o servidor
 
         Request request = new Request.Builder()
                 .url("http://10.0.2.2:5000/send") // Replace with the IP and port of the server
@@ -221,7 +229,7 @@ public class Vehicle extends Thread {
                     throw new IOException("Unexpected code " + response);
                 } else {
                     // Do something with the response.
-                    System.out.println(response.body().string());
+                   // System.out.println(response.body().string());
                 }
             }
         });
@@ -361,18 +369,7 @@ public class Vehicle extends Thread {
         // Distância que deveria ter sido percorrida a 80 km/h em 0,75 minutos
         // Ajuste de tempo
         reconciliationFluxSpeed = distanceCovered / timeElapsed;
-        System.out.println("calculated flux speed: " + reconciliationFluxSpeed);
-    }
-
-    public void addSpeed(float kmphSpeed) {
-        rawSpeedData.add((double) kmphSpeed);
-    }
-
-    private void updateSpeedData(){
-        System.out.println("average calculated speed from gps: " + SpeedStatistics.calculateAverageSpeed(rawSpeedData));
-        speedStandardDeviation.remove(0);
-        speedStandardDeviation.add(0,SpeedStatistics.calculateStandardDeviation(rawSpeedData));
-        rawSpeedData.clear();
+        System.out.println("Velocidade no ultimo Fluxo: " + reconciliationFluxSpeed);
     }
 
     public boolean hasReachedDestination(Location currentLocation) {
@@ -383,20 +380,19 @@ public class Vehicle extends Thread {
     }
 
     public void createReconciliationData(double totalDistance, double totalTime) {
-
-        double numberOfFluxPoints = findLargestDivisor((int) ceil(totalDistance));
-        fluxDistance = (int) (ceil(totalDistance)/(numberOfFluxPoints));
-        fluxTimeExpected = fluxDistance/80.0;
-        fluxTimeExpected = (fluxTimeExpected*3600);
+        //Cria parametros iniciais da reconciliação de dados
+        double numberOfFluxPoints = findLargestDivisor((int) ceil(totalDistance)); //Descobre o numero de divisões para medição (nós)
+        fluxDistance = (int) (ceil(totalDistance)/(numberOfFluxPoints)); //Distancia percorrida em cada fluxo idealmente
+        fluxTimeExpected = fluxDistance/80.0;  // Tempo ideal de cada fluxo (a 80km/h)
+        fluxTimeExpected = (fluxTimeExpected*3600); // Conversão de horas para segundos
         totalTravelDistance = totalDistance;
         totalTravelTime = totalTime;
         totalTravelTime = (ceil(totalDistance)/80)*3600;
-        timeToArrive = totalTime;
+        timeToArrive = totalTravelTime;  //Tempo para finalizar o percurso total
         reconciliationSamplingPoints = numberOfFluxPoints;
-        System.out.println("Fluxos: " + (int) reconciliationSamplingPoints + " Nós: " + ((int) reconciliationSamplingPoints -1));
-        speedIncidenceMatrix = createIncidenceMatrix((int) reconciliationSamplingPoints);
-        fillPointsTimesData((int) reconciliationSamplingPoints, fluxTimeExpected);
-        fillSpeedData(processedSpeedData, (int) reconciliationSamplingPoints);
+        System.out.println("Fluxos: " + (int) reconciliationSamplingPoints + " Nós: " + ((int) reconciliationSamplingPoints -1) + "Distancia de cada Fluxo: " + fluxDistance + " Tempo ideal de cada fluxo: " + fluxTimeExpected);
+        speedIncidenceMatrix = createIncidenceMatrix((int) reconciliationSamplingPoints); //Cria uma matriz de incidencia de acordo com o tamanho do vetor de medições
+        fillPointsTimesData((int) reconciliationSamplingPoints, fluxTimeExpected);// preenche o vetor de medições com o tempo ideal
     }
 
     public static double[][] createIncidenceMatrix(int numNodes) {
@@ -411,15 +407,8 @@ public class Vehicle extends Thread {
             // Coloque 1 na coluna que representa o fluxo de saída
             incidenceMatrix[i][i + 1] = 1;
         }
-
+        // F1->F2->F3->....->FN
         return incidenceMatrix;
-    }
-
-    public void fillSpeedData(ArrayList<Double> speedData, int n) {
-        for (int i = 0; i < n; i++) {
-            speedData.add(80.0);
-            speedStandardDeviation.add(0.5);
-        }
     }
 
     public void fillPointsTimesData(int n, double value) {
@@ -458,13 +447,12 @@ public class Vehicle extends Thread {
     }
 
     public void setLocationAndSpeed(float kmphSpeed, Location location) {
-        currentSpeed = kmphSpeed;
         currentLocation = location;
     }
 
-    public CrossDockingVehicle getVehicleCrossDocking() {
+    public CrossDockingVehicle getVehicleCrossDocking() { // Cria uma instancia do veiculo com parametros para o crossDocking
         LatLng currentLocationLatLang = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-        CrossDockingVehicle crossDockingVehicle = new CrossDockingVehicle(this.vehicleId.toString(), this.totalTravelDistance, currentLocationLatLang, this.endPoint);
+        CrossDockingVehicle crossDockingVehicle = new CrossDockingVehicle(this.vehicleId.toString(), this.totalTravelTime, currentLocationLatLang, this.endPoint);
         return crossDockingVehicle;
     }
 }
