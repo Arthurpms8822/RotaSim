@@ -26,6 +26,7 @@ id fuel_consumption
 id map
 id optmal_speed
 id start_location
+id switch_cross_docking
 id switch_vehicle_type
 id total_distance
 id total_time

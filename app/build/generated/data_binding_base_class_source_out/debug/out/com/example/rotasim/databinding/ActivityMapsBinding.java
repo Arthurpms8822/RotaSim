@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +21,7 @@ import java.lang.String;
 
 public final class ActivityMapsBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final LinearLayout rootView;
 
   @NonNull
   public final TextView averageSpeed;
@@ -63,6 +63,9 @@ public final class ActivityMapsBinding implements ViewBinding {
   public final AutoCompleteTextView startLocation;
 
   @NonNull
+  public final SwitchMaterial switchCrossDocking;
+
+  @NonNull
   public final SwitchMaterial switchVehicleType;
 
   @NonNull
@@ -71,14 +74,15 @@ public final class ActivityMapsBinding implements ViewBinding {
   @NonNull
   public final TextView totalTime;
 
-  private ActivityMapsBinding(@NonNull ScrollView rootView, @NonNull TextView averageSpeed,
+  private ActivityMapsBinding(@NonNull LinearLayout rootView, @NonNull TextView averageSpeed,
       @NonNull Button buttonGenerateRoute, @NonNull Button buttonStartSimulation,
       @NonNull Button buttonStopSimulation, @NonNull TextView currentDistance,
       @NonNull TextView currentSpeed, @NonNull TextView currentTime, @NonNull TextView eficiency,
       @NonNull AutoCompleteTextView endLocation, @NonNull TextView fuelConsumption,
       @NonNull FragmentContainerView map, @NonNull TextView optmalSpeed,
-      @NonNull AutoCompleteTextView startLocation, @NonNull SwitchMaterial switchVehicleType,
-      @NonNull TextView totalDistance, @NonNull TextView totalTime) {
+      @NonNull AutoCompleteTextView startLocation, @NonNull SwitchMaterial switchCrossDocking,
+      @NonNull SwitchMaterial switchVehicleType, @NonNull TextView totalDistance,
+      @NonNull TextView totalTime) {
     this.rootView = rootView;
     this.averageSpeed = averageSpeed;
     this.buttonGenerateRoute = buttonGenerateRoute;
@@ -93,6 +97,7 @@ public final class ActivityMapsBinding implements ViewBinding {
     this.map = map;
     this.optmalSpeed = optmalSpeed;
     this.startLocation = startLocation;
+    this.switchCrossDocking = switchCrossDocking;
     this.switchVehicleType = switchVehicleType;
     this.totalDistance = totalDistance;
     this.totalTime = totalTime;
@@ -100,7 +105,7 @@ public final class ActivityMapsBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public LinearLayout getRoot() {
     return rootView;
   }
 
@@ -203,6 +208,12 @@ public final class ActivityMapsBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.switch_cross_docking;
+      SwitchMaterial switchCrossDocking = ViewBindings.findChildViewById(rootView, id);
+      if (switchCrossDocking == null) {
+        break missingId;
+      }
+
       id = R.id.switch_vehicle_type;
       SwitchMaterial switchVehicleType = ViewBindings.findChildViewById(rootView, id);
       if (switchVehicleType == null) {
@@ -221,10 +232,10 @@ public final class ActivityMapsBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMapsBinding((ScrollView) rootView, averageSpeed, buttonGenerateRoute,
+      return new ActivityMapsBinding((LinearLayout) rootView, averageSpeed, buttonGenerateRoute,
           buttonStartSimulation, buttonStopSimulation, currentDistance, currentSpeed, currentTime,
           eficiency, endLocation, fuelConsumption, map, optmalSpeed, startLocation,
-          switchVehicleType, totalDistance, totalTime);
+          switchCrossDocking, switchVehicleType, totalDistance, totalTime);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

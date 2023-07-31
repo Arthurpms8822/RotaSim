@@ -1,5 +1,6 @@
 package com.example.rotasim;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.ceil;
 import static java.lang.Math.round;
 
@@ -96,7 +97,7 @@ public class Vehicle extends Thread {
         while (!Thread.currentThread().isInterrupted()) {
             double timeElapsed = (System.currentTimeMillis() - simulationStartTime) / (1000.0);
 
-            //Calcula o tempo passado para checar quando o tempo for igual ao desejado para cada nó
+            //Checa se já foi alcançada a distancia do ponto de medição
             if (distanceInCurrentFlow >= fluxDistance) {
                 reconciliateAndSend(timeElapsed);
             }
@@ -110,9 +111,10 @@ public class Vehicle extends Thread {
         double[] reconciliatedTimes = new double[] {};
         if (pointsTimes.size() > 2) { //somente para evitar crashes no ultimo fluxo (não é possivel reconciliar um vetor com menos de dois valores
             updateArrayList(pointsTimes, F1_novo);
-            timeStandardDeviation.remove(0);
+            double desvioCorrigido = timeStandardDeviation.get(0) * (F1_novo/fluxTimeExpected);
+            updateArrayList(timeStandardDeviation, desvioCorrigido);
 
-            speedIncidenceMatrix = createIncidenceMatrix(pointsTimes.size()); // cria matrix de incidencia com o novo tamanho de medidas
+            speedIncidenceMatrix = createIncidenceMatrix(pointsTimes.size()); // cria matriz de incidencia com o novo tamanho de medidas
             double[] y = convertArrayListToArray(pointsTimes); // define o array de medições (_rawMeasurements) como uma cópia do vetor de velocidades
             double[] v = convertArrayListToArray(timeStandardDeviation);
             double[][] A = speedIncidenceMatrix;
@@ -390,7 +392,7 @@ public class Vehicle extends Thread {
         totalTravelTime = (ceil(totalDistance)/80)*3600;
         timeToArrive = totalTravelTime;  //Tempo para finalizar o percurso total
         reconciliationSamplingPoints = numberOfFluxPoints;
-        System.out.println("Fluxos: " + (int) reconciliationSamplingPoints + " Nós: " + ((int) reconciliationSamplingPoints -1) + "Distancia de cada Fluxo: " + fluxDistance + " Tempo ideal de cada fluxo: " + fluxTimeExpected);
+        System.out.println("Fluxos: " + (int) reconciliationSamplingPoints + " Nós: " + ((int) reconciliationSamplingPoints -1) + " Distancia de cada Fluxo: " + fluxDistance + "km Tempo ideal de cada fluxo: " + fluxTimeExpected + "s");
         speedIncidenceMatrix = createIncidenceMatrix((int) reconciliationSamplingPoints); //Cria uma matriz de incidencia de acordo com o tamanho do vetor de medições
         fillPointsTimesData((int) reconciliationSamplingPoints, fluxTimeExpected);// preenche o vetor de medições com o tempo ideal
     }

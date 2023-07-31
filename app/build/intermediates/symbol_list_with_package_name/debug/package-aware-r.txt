@@ -3917,6 +3917,7 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id switch_cross_docking
 id switch_vehicle_type
 id tabMode
 id tag_accessibility_actions
